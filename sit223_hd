@@ -11,7 +11,8 @@ pipeline
             steps{
                 echo'Building the JAR file or Docker image ....'
                 
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                sh 'ls -la'
+                sh 'mvn clean package'
                 
             }
         }
