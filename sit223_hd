@@ -9,7 +9,7 @@ pipeline {
             }
         }
 
-        stage('Debug Files') {
+        stage('List Files') {
             steps {
                 echo 'Listing all files after checkout...'
                 sh 'find . -type f'
@@ -21,8 +21,9 @@ pipeline {
                 echo 'Creating target directory...'
                 sh 'mkdir -p target'
 
-                echo 'Compiling Java files...'
-                sh 'javac -d target $(find . -name "*.java")'
+                echo 'Compiling Java files from src/com/example...'
+                // Point javac to the correct location where .java files are
+                sh 'javac -d target $(find src/com/example -name "*.java")'
 
                 echo 'Creating JAR file...'
                 sh 'jar cf target/app.jar -C target .'
