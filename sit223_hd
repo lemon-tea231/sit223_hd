@@ -31,5 +31,51 @@ pipeline {
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
+        pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checking out source code...'
+                checkout scm
+            }
+        }
+
+        stage('List Files') {
+            steps {
+                echo 'Listing all files after checkout...'
+                sh 'find . -type f'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Creating target directory...'
+                sh 'mkdir -p target'
+
+                echo 'Compiling Java files from src/com/example...'
+                // Point javac to the correct location where .java files are
+                sh 'javac -d target $(find src/com/example -name "*.java")'
+
+                echo 'Creating JAR file...'
+                sh 'jar cf target/app.jar -C target .'
+
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Running automated tests...'
+                // Run the tests using JUnit
+                sh 'javac -d target $(find src/test/java -name "*.java")'
+                sh 'java -cp target:libs/* org.junit.platform.console.ConsoleLauncher --scan-classpath'
+            }
+        }
+
+    }
+}
+
+
     }
 }
