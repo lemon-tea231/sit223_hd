@@ -9,14 +9,14 @@ pipeline
         stage('Build')
         {
             steps{
-                echo'Building the JAR file or Docker image ....'
+                echo 'Compiling Java files...'
                 sh 'mkdir -p target'
                 sh 'javac -d target src/*.java'
 
                 echo 'Creating JAR file...'
                 sh 'jar cf target/myapp.jar -C target .'
 
-                
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: tru
             }
         }
     }
