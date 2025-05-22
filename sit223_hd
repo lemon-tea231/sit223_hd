@@ -8,19 +8,8 @@ pipeline
     stages {
         stage('Build')
         {
-            steps{
-                echo 'Listing Java source files...'
-        sh 'ls -l src/*.java'
-
-        echo 'Compiling Java files...'
-        sh 'mkdir -p target'
-        sh 'javac -d target src/*.java'
-
-        echo 'Packaging into JAR...'
-        sh 'jar cf target/myapp.jar -C target .'
-
-        archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-            }
+            sh 'echo "Current directory:" && pwd'
+            sh 'echo "Listing full workspace:" && find . -type f'
         }
     }
 
