@@ -1,18 +1,34 @@
-pipeline
-{
+pipeline {
     agent any
-    tools {
-        maven 'maven 3.8.5'
-        nodejs 'nodejs'
-    }
+
     stages {
-        stage('Build')
-        {
-            steps{
-                sh 'echo "Current directory:" && pwd'
-                sh 'echo "Listing full workspace:" && find . -type f'
+        stage('Checkout') {
+            steps {
+                echo 'Checking out source code...'
+                checkout scm
+            }
+        }
+
+        stage('Debug Files') {
+            steps {
+                echo 'Listing all files after checkout...'
+                sh 'find . -type f'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Creating target directory...'
+                sh 'mkdir -p target'
+
+                echo 'Compiling Java files...'
+                sh 'javac -d target $(find . -name "*.java")'
+
+                echo 'Creating JAR file...'
+                sh 'jar cf target/app.jar -C target .'
+
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
     }
-
 }
