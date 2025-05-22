@@ -1,0 +1,22 @@
+pipelines
+{
+    agents any;
+    tools {
+        maven 'maven 3.8.5'
+        nodejs 'nodejs'
+    }
+    Stages {
+        stage('Build')
+        {
+            steps{
+                echo'Building the JAR file or Docker image ....'
+                sh 'mvn clean package'
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                script {
+                    docker.build("myapp:${BUILD_NUMBER}")
+                }
+            }
+        }
+    }
+
+}
