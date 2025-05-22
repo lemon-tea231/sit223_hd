@@ -12,9 +12,7 @@ pipelines
                 echo'Building the JAR file or Docker image ....'
                 sh 'mvn clean package'
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-                script {
-                    docker.build("myapp:${BUILD_NUMBER}")
-                }
+                
             }
         }
     }
