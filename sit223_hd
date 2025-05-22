@@ -12,7 +12,7 @@ pipeline
                 echo'Building the JAR file or Docker image ....'
                 
                 sh 'ls -la'
-                sh 'mvn clean package'
+                sh 'mvn -f path/to/pom.xml <goals> ...'
                 
             }
         }
