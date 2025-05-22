@@ -9,14 +9,17 @@ pipeline
         stage('Build')
         {
             steps{
-                echo 'Compiling Java files...'
-                sh 'mkdir -p target'
-                sh 'javac -d target src/*.java'
+                echo 'Listing Java source files...'
+        sh 'ls -l src/*.java'
 
-                echo 'Creating JAR file...'
-                sh 'jar cf target/myapp.jar -C target .'
+        echo 'Compiling Java files...'
+        sh 'mkdir -p target'
+        sh 'javac -d target src/*.java'
 
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: tru
+        echo 'Packaging into JAR...'
+        sh 'jar cf target/myapp.jar -C target .'
+
+        archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
     }
