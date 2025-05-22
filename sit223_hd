@@ -8,8 +8,10 @@ pipeline
     stages {
         stage('Build')
         {
-            sh 'echo "Current directory:" && pwd'
-            sh 'echo "Listing full workspace:" && find . -type f'
+            steps{
+                sh 'echo "Current directory:" && pwd'
+                sh 'echo "Listing full workspace:" && find . -type f'
+            }
         }
     }
 
