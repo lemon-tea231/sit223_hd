@@ -5,7 +5,7 @@ pipeline
         maven 'maven 3.8.5'
         nodejs 'nodejs'
     }
-    Stages {
+    stages {
         stage('Build')
         {
             steps{
