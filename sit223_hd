@@ -16,7 +16,7 @@ pipeline
                 echo 'Creating JAR file...'
                 sh 'jar cf target/myapp.jar -C target .'
 
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                
             }
         }
     }
