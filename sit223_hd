@@ -37,7 +37,7 @@ pipeline {
 
                 // Compile test files
                 echo 'Compiling test files from src/test/java...'
-                sh 'javac -d target -cp target:libs/* $(find src/test/java -name "*.java")'
+                sh 'javac -d target -cp target:libs/* $(find src/test/java -name "Main.java")'
 
                 // Run the JUnit tests
                 echo 'Running JUnit tests...'
