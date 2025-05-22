@@ -34,9 +34,17 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running automated tests...'
-                // Run the tests using JUnit
-                sh 'javac -d target $(find src/test/java -name "*.java")'
+
+                // Compile test files
+                echo 'Compiling test files from src/test/java...'
+                sh 'javac -d target -cp target:libs/* $(find src/test/java -name "*.java")'
+
+                // Run the JUnit tests
+                echo 'Running JUnit tests...'
                 sh 'java -cp target:libs/* org.junit.platform.console.ConsoleLauncher --scan-classpath'
+
+                // Optional: Generate test report
+                junit '**/target/test-*.xml'  // Adjust based on your test output path
             }
         }
 
