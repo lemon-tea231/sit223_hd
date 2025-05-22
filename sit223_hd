@@ -5,10 +5,11 @@ pipeline
         maven 'maven 3.8.5'
         nodejs 'nodejs'
     }
-    stages {
+    Stages {
         stage('Build')
         {
-            echo 'Compiling Java files...'
+            steps{
+                echo'Building the JAR file or Docker image ....'
                 sh 'mkdir -p target'
                 sh 'javac -d target src/*.java'
 
@@ -16,6 +17,7 @@ pipeline
                 sh 'jar cf target/myapp.jar -C target .'
 
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            }
         }
     }
 
