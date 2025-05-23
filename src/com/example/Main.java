@@ -1,4 +1,6 @@
 package com.example;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,8 +11,10 @@ public class Main {
 // Test class, non-public
 class MainTest {
 
-    @org.junit.Test
-    public void testSomething() {
-        org.junit.Assert.assertEquals(4, 2 + 2);
+    public class MainTest {
+    @Test
+    public void testAddition() {
+        assertEquals(4, 2 + 2);
     }
+}
 }
