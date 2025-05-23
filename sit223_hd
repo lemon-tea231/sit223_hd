@@ -32,14 +32,16 @@ pipeline {
             }
         }
         stage('Test') {
-    steps {
-        echo 'Compiling test files...'
-        sh 'javac -d target -cp "libs/*:target" $(find src/com/example -name "Main.java")'
+            steps {
+                sh './mvnw test' // Runs JUnit tests
+            
+        
 
-        echo 'Running JUnit tests...'
-        sh 'java -jar libs/junit-platform-console-standalone-1.10.2.jar --class-path target --scan-classpath'
-    }
-}
+        
+           
+                junit 'target/surefire-reports/*.xml' // Publish JUnit test results
+            }
+        }
 
     }
 }
