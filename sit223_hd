@@ -34,7 +34,9 @@ pipeline {
         }
         stage('Test') {
             steps {
-               sh 'mvn clean package'
+               git 'https://github.com/your-username/your-repo.git'
+                sh 'ls -la'
+
             }
         }
 
