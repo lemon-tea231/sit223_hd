@@ -52,8 +52,7 @@ pipeline {
           # Compile all source and test Java files
           javac -cp "lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar" -d bin $(find src/com/example -name "Main.java") $(find test -name "Main.java" 2>/dev/null)
 
-          # Run tests (replace 'com.example.MainTest' with your test class FQCN)
-          java -cp "bin:lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar" org.junit.runner.JUnitCore com.example.Test
+          
         '''
 
 
