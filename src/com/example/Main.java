@@ -1,12 +1,16 @@
 package com.example;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello World");
+    }
+}
 
-public class MainTest {
-  
-  @Test
-  public void testSomething() {
-    assertEquals(4, 2 + 2);
-  }
+// Test class, non-public
+class MainTest {
+
+    @org.junit.Test
+    public void testSomething() {
+        org.junit.Assert.assertEquals(4, 2 + 2);
+    }
 }
