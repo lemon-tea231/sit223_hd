@@ -34,7 +34,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-               git 'https://github.com/lemon-tea231/sit223_hd.git'
+               git branch: 'main', url: 'https://github.com/your-username/your-repo.git'
                 sh 'ls -la'
 
             }
