@@ -1,6 +1,6 @@
 package com.training.example.JacocoExample;
 
-public class Palindrome {
+public class Main {
 	
 	public boolean isPalindrome(String inputString) {
 	    if (inputString.length() == 0) {
