@@ -3,6 +3,7 @@ pipeline {
     tools {maven 'maven 3.8.5'}
     environment {
         SONARQUBE = credentials('sit223_hd') 
+        SONARQUBE_SERVER = 'Sonarqube'
     }
 
 
@@ -64,17 +65,24 @@ pipeline {
         }
 stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('Sonarqube') {
-                    sh 'sonar-scanner'
+                script {
+                    // Run SonarQube scanner for analysis
+                    withSonarQubeEnv(SONARQUBE_SERVER) {
+                        // Run the SonarQube scanner command
+                        sh 'sonar-scanner'
+                    }
                 }
             }
         }
 
-        // Optional: wait for quality gate
-        stage("Quality Gate") {
+        stage('Quality Gate') {
             steps {
-                timeout(time: 1, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
+                // Wait for the SonarQube analysis to finish and check the quality gate result
+                script {
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        error "Quality gate failed: ${qg.status}"
+                    }
                 }
             }
         }
