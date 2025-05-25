@@ -1,6 +1,10 @@
 pipeline {
     agent any
     tools {maven 'maven 3.8.5'}
+    environment {
+        SONARQUBE = credentials('sit223_hd') 
+    }
+
 
     stages {
         stage('Checkout') {
@@ -56,6 +60,22 @@ pipeline {
         '''
 
 
+            }
+        }
+stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('My SonarQube') {
+                    sh 'sonar-scanner'
+                }
+            }
+        }
+
+        // Optional: wait for quality gate
+        stage("Quality Gate") {
+            steps {
+                timeout(time: 1, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
             }
         }
 
