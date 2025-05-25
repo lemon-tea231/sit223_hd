@@ -55,7 +55,7 @@ stage('SonarQube Analysis') {
             steps {
                 script {
                     withSonarQubeEnv('Sonarqube') {  // Use the name of your SonarQube server config
-                        sh 'mvn sonar:sonar'
+                        sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
                     }
                 
                 }
