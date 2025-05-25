@@ -67,7 +67,7 @@ stage('SonarQube Analysis') {
             steps {
                 script {
                     sh '''
-                        ./mvnw clean pachage
+                        ./mvn clean pachage
                     '''
                 
                 }
