@@ -8,19 +8,7 @@ pipeline {
 
 
     stages {
-        stage('Checkout') {
-            steps {
-                echo 'Checking out source code...'
-                checkout scm
-            }
-        }
-
-        stage('List Files') {
-            steps {
-                echo 'Listing all files after checkout...'
-                sh 'find . -type f'
-            }
-        }
+        
 
         stage('Build') {
             steps {
