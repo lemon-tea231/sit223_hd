@@ -67,7 +67,7 @@ stage('SonarQube Analysis') {
             steps {
                 script {
                     // Run SonarQube scanner for analysis
-                    withSonarQubeEnv(SONARQUBE_SERVER) {
+                    withSonarQubeEnv(installationName: 'Sonarqube') {
                         // Run the SonarQube scanner command
                         sh 'sonar-scanner'
                     }
