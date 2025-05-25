@@ -66,11 +66,13 @@ pipeline {
 stage('SonarQube Analysis') {
             steps {
                 script {
-                    // Run SonarQube scanner for analysis
-                    withSonarQubeEnv(installationName: 'Sonarqube') {
-                        // Run the SonarQube scanner command
-                        sh 'sonar-scanner'
-                    }
+                    sh '''
+                        docker run --rm \
+                          -v $(pwd):/usr/src \
+                          -e SONAR_HOST_URL="${SONARQUBE_URL}" \
+                          sonarsource/sonar-scanner-cli
+                    '''
+                }
                 }
             }
         }
