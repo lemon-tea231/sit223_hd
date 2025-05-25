@@ -66,9 +66,9 @@ pipeline {
 stage('SonarQube Analysis') {
             steps {
                 script {
-                    sh '''
-                        ./mvn clean pachage
-                    '''
+                    withSonarQubeEnv('Sonarqube') {  // Use the name of your SonarQube server config
+                        sh 'mvn sonar:sonar'
+                    }
                 
                 }
             }
