@@ -57,11 +57,15 @@ pipeline {
             steps {
                 echo 'Deploying to the staging environment...'
                 script {
-                    // Stop and remove existing containers
-                    sh 'docker-compose -f $COMPOSE_FILE down'
+                    sh '''
+    aws configure set aws_access_key_id YOUR_KEY
+    aws configure set aws_secret_access_key YOUR_SECRET
+    aws elasticbeanstalk create-application-version --application-name my-app \
+      --version-label v1 --source-bundle S3Bucket=my-bucket,S3Key=my-app-v1.zip
 
-                    // Rebuild and start containers in detached mode
-                    sh 'docker-compose -f $COMPOSE_FILE up -d --build'
+    aws elasticbeanstalk update-environment --environment-name my-env \
+      --version-label v1
+'''
                 }
             }
         }
